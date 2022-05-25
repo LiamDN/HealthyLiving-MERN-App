@@ -1,0 +1,54 @@
+<div class="dashboard">
+    <div class="dashboard-img">
+
+    </div>
+    <div class="dashboard-text">
+        {{#if user}}
+        {{#if welcome}}
+            <div class="d-flex w-100">
+                <p class="pb-3 pt-3 font-weight-bold h2">Data Entry Clerk Dashboard</p>
+                <a href="/data-clerk/create" class="btn btn-outline-secondary ms-auto me-2 my-auto">Create New Mealkit</a>
+                <a href="/load-data/meal-kits" class="btn btn-outline-secondary me-2 my-auto">Load Data</a>
+                <a href="/data-clerk/delete-all" class="btn btn-danger my-auto">Delete All</a>
+            </div>
+            <p class="pb-3 pt-3 h4">Welcome {{user.firstName}}!</p>
+                <p>This is your data entry dashboard. Create, edit and remove meal kits.</p>
+            <p>Return to the <a href="/">home page</a>.</p>
+        {{/if}}
+        {{#if message}}
+            <span style="color: rgb(53, 194, 98);">{{message}}</span>
+        {{/if}}
+        <div class="">
+            {{#if editMealKit}}
+                {{>edit-mealkit editMealKit}}
+            {{else}}
+                {{#if createMealKit}}
+                    {{>create-mealkit}}
+                {{else}}
+                    {{#each mealCategories}}
+                <h1 class="meal-category">{{this.categoryName}}</h1>
+                <div class="container">
+                        <div class="row justify-content-center">
+                                {{#each this.mealKits}}
+                                <div class="col-12 col-md-4 mt-4">
+                                        {{>dashboard-mealkit this}}
+                                </div>
+                                {{/each}}
+                        </div>
+                </div>
+                {{else}}
+                {{/each}}
+                {{/if}}
+            {{/if}}
+        </div>
+        {{else}}
+        <h2 class="pb-3 pt-3">Dashboard Error!</h2>
+        <p>Your are not signed in as a data entry clerk. You should not be able to see this page.</p> 
+        <p>Try <a href="/user/login">logging in here</a>.</p>
+        <p>Or, return to the <a href="/">home page</a>.</p>
+        {{/if}}
+    </div>
+    <div class="dashboard-img" style="background-position-x: 300px;">
+
+    </div>
+</div>
